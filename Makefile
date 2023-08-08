@@ -1,37 +1,35 @@
-NAME = minitalk
+CLIENT = client
+SERVER = server
 
-BONUSNAME = checker
+CLIENTSRC = client.c
+SERVERSRC = server.c
 
-SRCS = push_swap.c
+CLIENTOBJS := ${CLEINTSRCS:.c=.o}
+SERVEROBJS := ${SERVERSRCS:.c=.o}
 
-BONUSSRCS = checker.c
-
-OBJS := ${SRCS:.c=.o}
-
-BONUSOBJS := ${BONUSSRCS:.c=.o}
-
-HEADER = push_swap.h
+CLIENTHEADER = client.h
+SERVERHEADER = server.h
 
 FLAGS = -Wall -Wextra -Werror
 
-all:	$(NAME)
+all:	$(CLIENT) $(SERVER)
 
-$(NAME):	$(OBJS)
-	cc $(FLAGS) -o $(NAME) $(OBJS)
+$(CLIENT):	$(CLIENTOBJS)
+	cc $(FLAGS) -o $(CLIENT) $(CLIENTOBJS)
 
-$(OBJS):	$(SRCS)
-	cc -c $(FLAGS) $(SRCS)
+$(SERVER):	$(SERVEROBJS)
+	cc $(FLAGS) -o $(SERVER) $(SERVEROBJS)
 
-bonus):	$(BONUSOBJS)
-	cc $(FLAGS) -o $(BONUSNAME) $(BONUSOBJS)
+$(CLIENTOBJS):	$(CLIENTSRCS)
+	cc -c $(FLAGS) $(CLIENTSRCS)
 
-$(BONUSOBJS):	$(BONUSSRCS)
-	cc -c $(FLAGS) $(BONUSSRCS)
+$(SERVEROBJS):	$(SERVERSRCS)
+	cc -c $(FLAGS) $(SERVERSRCS)
 
 clean:
-	rm -f $(OBJS) $(BONUSOBJS)
+	rm -f $(CLIENTOBJS) $(SERVEROBJS)
 
 fclean:	clean
-	rm -f $(NAME) $(BONUSNAME)
+	rm -f $(CLIENT) $(SERVER)
 
 re:	fclean all
