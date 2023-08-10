@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:16:26 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/08/08 18:39:26 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/08/10 21:47:25 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 # include <unistd.h>
 # include <signal.h>
 
-int main(int argc, char **argv);
+int	ft_atoi(const char *nptr)
 
 #endif
