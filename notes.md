@@ -1,0 +1,4 @@
+- use sigaction()
+- define signal handler which will be used in sigaction
+- in the signal handler, call listen for the text from client and print it
+- use ft_printf for printing

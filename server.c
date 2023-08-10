@@ -14,6 +14,17 @@
 
 int main(int argc, char **argv)
 {
-    while (1)
-        pause();
+    int pid;
+    const struct    sa;
+    {
+        
+    };
+    
+    
+    pid = getpid();
+    ft_printf("%d\n", pid);
+    while(argc == 1)
+    {
+        sigaction(SIGUSR1, sa);
+    }
 }

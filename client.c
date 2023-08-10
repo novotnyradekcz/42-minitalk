@@ -14,5 +14,9 @@
 
 int main(int argc, char **argv)
 {
-    
+    if (argc != 3 || argv[1])
+    {
+        ft_printf("Incorrect arguments.\n");
+        ft_printf("Should be: ./client <PID> <message>\n");
+    }
 }
