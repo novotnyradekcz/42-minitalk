@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:45:55 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/08/10 21:53:32 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:26:31 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,10 @@ int	main(void)
 {
 	struct sigaction	sa;
 
-	
 	write(1, "Process ID: ", 13);
 	ft_putnbr_fd(getpid(), 1);
 	write(1, "\n", 2);
- 	sigemptyset(&sa.sa_mask);
+	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sa.sa_sigaction = shandler;
 	sigaction(SIGUSR1, &sa, NULL);

@@ -6,13 +6,13 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:45:42 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/08/10 21:55:57 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:27:54 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static int	status;
+static int	g_status;
 
 int	ft_atoi(const char *nptr)
 {
@@ -39,7 +39,7 @@ int	ft_atoi(const char *nptr)
 	return (neg * res);
 }
 
-int checkin(int checked, int checker)
+int	checkin(int checked, int checker)
 {
 	if (checker == 0 && checked != 3)
 	{
@@ -60,12 +60,11 @@ void	shandler(int sig, siginfo_t *info, void *ctx)
 
 	(void)info;
 	(void)ctx;
-	status = 1;
+	g_status = 1;
 	if (sig == SIGUSR2)
 		i++;
 	else if (sig == SIGUSR1)
 	{
-		// ft_printf("%d bytes received\n", i / 8);
 		write(1, "Message received.\n", 19);
 		exit(0);
 	}
@@ -84,7 +83,7 @@ int	ctob(char c, int pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		while (status == 0)
+		while (g_status == 0)
 		{
 			if (j == 42)
 			{
@@ -94,13 +93,13 @@ int	ctob(char c, int pid)
 			j++;
 			usleep(100);
 		}
-		status = 0;
+		g_status = 0;
 		i--;
 	}
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
 	unsigned int		i;
