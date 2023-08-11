@@ -1,10 +1,10 @@
 CLIENT = client
 SERVER = server
 
-CLIENTSRC = client.c
-SERVERSRC = server.c
+CLIENTSRCS = client.c
+SERVERSRCS = server.c
 
-CLIENTOBJS := ${CLEINTSRCS:.c=.o}
+CLIENTOBJS := ${CLIENTSRCS:.c=.o}
 SERVEROBJS := ${SERVERSRCS:.c=.o}
 
 CLIENTHEADER = client.h

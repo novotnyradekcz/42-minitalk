@@ -39,17 +39,36 @@ int	ft_atoi(const char *nptr)
 	return (neg * res);
 }
 
+int checkin(int checked, int checker)
+{
+	if (checker == 0 && checked != 3)
+	{
+		write(2, "Wrong input.\nShould be: ./client <PID> <message>\n", 50);
+		return (1);
+	}
+	if (checker == 1 && kill(checked, 0) == -1)
+	{
+		write(2, "Invalid process ID\n", 20);
+		return (1);
+	}
+	return (0);
+}
+
 void	shandler(int sig, siginfo_t *info, void *ctx)
 {
 	static int	i;
 
 	(void)info;
 	(void)ctx;
-	counter = 1;
+	status = 1;
 	if (sig == SIGUSR2)
 		i++;
 	else if (sig == SIGUSR1)
-		ft_printf("%d bytes received\n", i / 8);
+	{
+		// ft_printf("%d bytes received\n", i / 8);
+		write(1, "Message received.", 18);
+		exit(0);
+	}
 }
 
 int	ctob(char c, int pid)
@@ -69,8 +88,8 @@ int	ctob(char c, int pid)
 		{
 			if (j == 42)
 			{
-				ft_printf("Server not responding.\n");
-				return (1);
+				write(1, "Server not responding.\n", 24);
+				exit(1);
 			}
 			j++;
 			usleep(100);
@@ -84,21 +103,19 @@ int	ctob(char c, int pid)
 int main(int argc, char **argv)
 {
 	struct sigaction	sa;
-	char				i;
+	unsigned int		i;
 	int					pid;
 
-	if (argc != 3)
-	{
-		ft_printf("Incorrect arguments.\n");
-		ft_printf("Should be: ./client <PID> <message>\n");
-	}
+	if (checkin(argc, 0))
+		return (1);
 	pid = ft_atoi(argv[1]);
+	if (checkin(pid, 1))
+		return (1);
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
+	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sa.sa_sigaction = shandler;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	// handle error
 	i = 0;
 	while (argv[2][i])
 	{

@@ -18,6 +18,4 @@
 # include <unistd.h>
 # include <signal.h>
 
-int	ft_atoi(const char *nptr)
-
 #endif
