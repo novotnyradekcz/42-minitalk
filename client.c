@@ -66,7 +66,7 @@ void	shandler(int sig, siginfo_t *info, void *ctx)
 	else if (sig == SIGUSR1)
 	{
 		// ft_printf("%d bytes received\n", i / 8);
-		write(1, "Message received.", 18);
+		write(1, "Message received.\n", 19);
 		exit(0);
 	}
 }
@@ -76,7 +76,7 @@ int	ctob(char c, int pid)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 7;
 	while (i >= 0)
 	{
 		j = 0;
